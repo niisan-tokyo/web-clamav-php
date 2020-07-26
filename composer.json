@@ -1,0 +1,23 @@
+{
+    "name": "niisan-tokyo/web-clamav-php",
+    "description": "Anti virus scanner through web using php with clamav.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Niisan\\ClamAV\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "license": "MIT",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9.2"
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
