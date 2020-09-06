@@ -15,23 +15,39 @@ Execute following code.
 ```php
 require 'vendor/autoload.php';
 
-$manager = new Niisan\ClamAV\Manager(['url' => 'clamav']);
+$scanner = \Niisan\ClamAV\ScannerFactory::create([
+    'driver' => 'remote',
+    'host' => 'example.com'
+]);
 
-$manager->ping();
-echo $manager->getMessage(), "\n";
-
-if (! $manager->scan(__DIR__ . '/README.md')) {
-    echo 'A Virus is exists!!';
+if (! $scanner->scan($_FILE['userfile']['tmp_name'])) {
+    echo 'User file has a virus!';
 }
-echo $manager->getMessage(), "\n";
-```
-
-And then we get the following result.
-
-```
-PONG
-
-stream: OK
 ```
 
 If a file have some virus, `Niisan\ClamAV\Manager::scan` return false.
+
+# config
+
+When you want know a config that is an argument of ScannerFactory, See example.config.php.
+
+You can select driver, which 'remote' or 'local'.
+When yor select 'remote', the config need 'host' or 'remote.host' that means clamd host: following
+
+```php
+[
+    'driver' => 'remote',
+    'host' => 'examle.com'
+];
+```
+
+```php
+[
+    'driver' => 'remote'
+    'remote' => [
+        'host' => 'example.com'
+    ]
+];
+```
+
+Or you select 'local', the config need 'path' or 'local.path', that means a unix socket of clamd.
