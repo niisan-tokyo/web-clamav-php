@@ -27,7 +27,6 @@ class LocalScannerTest extends TestCase
         }
         $temp = tempnam(__DIR__, 'test');
         file_put_contents($temp, $str);
-        chmod($temp, '0644');
         $manager = new LocalScanner(['path' => '/var/run/clamav/clamd.ctl']);
         $result = $manager->scan($temp);
 
@@ -44,7 +43,6 @@ class LocalScannerTest extends TestCase
         $rus = '-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*';
         $temp = tempnam('/tmp', 'test');
         file_put_contents($temp, $vi.$rus);
-        chmod($temp, '0644');
         $manager = new LocalScanner(['path' => '/var/run/clamav/clamd.ctl']);
         $result = $manager->scan($temp);
 

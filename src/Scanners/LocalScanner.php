@@ -41,6 +41,7 @@ class LocalScanner implements Scanner
         if (!file_exists($file_path)) {
             throw new \RuntimeException("such file is not found: $file_path");
         }
+        chmod($file_path, '0644');
         $message = $this->execWithSocket(function ($socket) use ($file_path) {
             $command = 'SCAN ' . $file_path;
             socket_send($socket, $command, strlen($command), 0);
@@ -48,6 +49,7 @@ class LocalScanner implements Scanner
             return $buf;
         });
 
+        chmod($file_path, '0600');
         return $this->checkMessage($message, 'OK');
     }
 
