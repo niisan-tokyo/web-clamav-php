@@ -17,7 +17,7 @@ require 'vendor/autoload.php';
 
 $scanner = \Niisan\ClamAV\ScannerFactory::create([
     'driver' => 'remote',
-    'host' => 'example.com'
+    'url' => 'example.com'
 ]);
 
 if (! $scanner->scan($_FILE['userfile']['tmp_name'])) {
@@ -25,7 +25,7 @@ if (! $scanner->scan($_FILE['userfile']['tmp_name'])) {
 }
 ```
 
-If a file have some virus, `Niisan\ClamAV\Manager::scan` return false.
+If a file have some virus, `Scanner::scan` return false.
 
 # config
 
@@ -37,7 +37,7 @@ When yor select 'remote', the config need 'host' or 'remote.host' that means cla
 ```php
 [
     'driver' => 'remote',
-    'host' => 'examle.com'
+    'url' => 'examle.com'
 ];
 ```
 
@@ -51,3 +51,10 @@ When yor select 'remote', the config need 'host' or 'remote.host' that means cla
 ```
 
 Or you select 'local', the config need 'path' or 'local.path', that means a unix socket of clamd.
+
+```php
+[
+    'driver' => 'local',
+    'path' => '/var/run/clamav/clamd.ctl'
+]
+```
