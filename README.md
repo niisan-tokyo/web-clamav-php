@@ -58,3 +58,7 @@ Or you select 'local', the config need 'path' or 'local.path', that means a unix
     'path' => '/var/run/clamav/clamd.ctl'
 ]
 ```
+
+# for developing
+If you want to develop this package, some tests will fail for not starting clamd server.
+So you command `clamd start` to start clamav daemon before testing. 

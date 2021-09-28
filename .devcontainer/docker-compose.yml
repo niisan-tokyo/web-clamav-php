@@ -15,4 +15,4 @@ services:
     clamav:
         image: dinkel/clamavd
         ports:
-            - 3310:3310
+            - '3310'

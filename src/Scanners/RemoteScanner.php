@@ -30,7 +30,7 @@ class RemoteScanner implements Scanner
             stream_socket_sendto($socket, 'PING');
             return stream_socket_recvfrom($socket, 65536);
         });
-        if ($this->checkMessage($message, 'PONG')) {
+        if (! $this->checkMessage($message, 'PONG')) {
             throw new \RuntimeException("Not Connected to ClamAV server: $message has returned");
         }
 
@@ -87,7 +87,8 @@ class RemoteScanner implements Scanner
      */
     private function checkMessage(string $message, string $check): bool
     {
-        return trim(substr(strrchr($message, ":"), 1)) === $check;
+        $mes = (strrchr($message, ":")) ? : ': '.$message;
+        return trim(substr($mes, 1)) === $check;
     }
 
     /**

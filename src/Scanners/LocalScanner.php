@@ -24,9 +24,10 @@ class LocalScanner implements Scanner
     {
         $message = $this->execWithSocket(function ($socket) {
             socket_send($socket, 'PING', 4, 0);
-            return socket_recv($socket, $buf, 65536, MSG_WAITALL);
+            socket_recv($socket, $buf, 65536, MSG_WAITALL);
+            return $buf;
         });
-        if ($this->checkMessage($message, 'PONG')) {
+        if (! $this->checkMessage($message, 'PONG')) {
             throw new \RuntimeException("Not Connected to ClamAV server: $message has returned");
         }
 
@@ -73,6 +74,7 @@ class LocalScanner implements Scanner
      */
     private function checkMessage(string $message, string $check): bool
     {
-        return trim(substr(strrchr($message, ":"), 1)) === $check;
+        $mes = (strrchr($message, ":")) ? : ': '.$message;
+        return trim(substr($mes, 1)) === $check;
     }
 }
