@@ -16,7 +16,7 @@ class ScannerFactoryTest extends TestCase
         $config = [
             'driver' => 'remote',
             'remote' => [
-                'url' => 'example.com'
+                'host' => 'example.com'
             ]
         ];
 

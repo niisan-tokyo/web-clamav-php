@@ -8,15 +8,15 @@ class RemoteScanner implements Scanner
 {
 
     private $port = 3310;
-    private $url;
+    private $host;
 
     public function __construct(array $option)
     {
-        if (empty($option['url'])) {
+        if (empty($option['host'])) {
             throw new \RuntimeException('ClamAV server host is not input.');
         }
 
-        $this->url = $option['url'];
+        $this->host = $option['host'];
         $this->port = $option['port'] ?? $this->port;
     }
 
@@ -66,7 +66,7 @@ class RemoteScanner implements Scanner
      */
     private function execWithSocket(callable $callback): string
     {
-        $address = sprintf("tcp://%s:%s", $this->url, $this->port);
+        $address = sprintf("tcp://%s:%s", $this->host, $this->port);
         $socket = stream_socket_client($address);
         if (! $socket) {
             throw new \RuntimeException('Connection failed: ' . $address);

@@ -17,7 +17,7 @@ class RemoteScannerTest extends TestCase
         }
         $temp = tempnam(__DIR__, 'test');
         file_put_contents($temp, $str);
-        $manager = new RemoteScanner(['url' => 'clamav']);
+        $manager = new RemoteScanner(['host' => 'clamav']);
         $result = $manager->scan($temp);
 
         $this->assertTrue($result);
@@ -33,7 +33,7 @@ class RemoteScannerTest extends TestCase
         $rus = '-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*';
         $temp = tempnam('/tmp', 'test');
         file_put_contents($temp, $vi.$rus);
-        $manager = new RemoteScanner(['url' => 'clamav']);
+        $manager = new RemoteScanner(['host' => 'clamav']);
         $result = $manager->scan($temp);
 
         $this->assertFalse($result);
@@ -45,7 +45,7 @@ class RemoteScannerTest extends TestCase
      */
     public function weSendPingAndGetPong()
     {
-        $manager = new RemoteScanner(['url' => 'clamav']);
+        $manager = new RemoteScanner(['host' => 'clamav']);
         $this->assertTrue($manager->ping());
     }
 }
